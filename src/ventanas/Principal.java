@@ -378,7 +378,7 @@ public class Principal extends javax.swing.JFrame {
                 infPeliculaAnno.setText(String.valueOf(p.getAnnoEstreno()));
                try {
                    if (p.getCaratula() == null){
-                        System.out.println("no hy foto");
+                        System.out.println("no hay foto");
                    }else {
                         peli.RecuperarBLOB((String)modelo.getValueAt(fila, columna));
                         caratulaDefecto = "/imagenes/caratula.jpg";
