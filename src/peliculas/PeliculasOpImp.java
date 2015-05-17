@@ -106,11 +106,29 @@ public class PeliculasOpImp implements PeliculasOp {
     }
 
     @Override
-    public void modificar(String campo, String contenidoFinal, String contenidoOrigen) {
+    public void modificar(String contenidoOrigen, String titulo, String director, String genero, int annoEstreno, FileInputStream caratula) {
         try {
-            preparedStatement = conexion.prepareStatement("UPDATE peliculas SET " + campo + " = ? WHERE " + campo + " = ?");
-            preparedStatement.setString(1, contenidoFinal);
-            preparedStatement.setString(2, contenidoOrigen);
+            preparedStatement = conexion.prepareStatement("UPDATE peliculas SET titulo = ?, director = ?, genero = ?, annoEstreno = ? caratula = ? WHERE titulo = ?");
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, director);
+            preparedStatement.setString(3, genero);
+            preparedStatement.setInt(4, annoEstreno);
+            preparedStatement.setBlob(5, caratula);
+            preparedStatement.setString(6, contenidoOrigen);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void modificar(String contenidoOrigen, String titulo, String director, String genero, int annoEstreno) {
+        try {
+            preparedStatement = conexion.prepareStatement("UPDATE peliculas SET titulo = ?, director = ?, genero = ?, annoEstreno = ? WHERE titulo = ?");
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, director);
+            preparedStatement.setString(3, genero);
+            preparedStatement.setInt(4, annoEstreno);
+            preparedStatement.setString(5, contenidoOrigen);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);

@@ -31,21 +31,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal(){
         initComponents();
         setLocationRelativeTo(null);
-        PeliculasOpImp peliculas = new PeliculasOpImp();
-        modelo = new DefaultTableModel();
-        tabla.setModel(modelo);
-        modelo.addColumn("Titulo");
-        modelo.addColumn("Director");
-        modelo.addColumn("Género");
-        modelo.addColumn("Año");
-        for (int i = 0; i < peliculas.consultar().size(); i++) {
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = peliculas.consultar().get(i).getTitulo();
-            fila[1] = peliculas.consultar().get(i).getDirector();
-            fila[2] = peliculas.consultar().get(i).getGenero();
-            fila[3] = peliculas.consultar().get(i).getAnnoEstreno();
-            modelo.addRow(fila);
-        }
+        crearTabla();
     }
 
     /**
@@ -190,7 +176,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\iconoLupa.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoLupa.png"))); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +200,7 @@ public class Principal extends javax.swing.JFrame {
 
         pelis.setText("Peliculas");
 
-        editar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\stock-tool-pencil-22.png")); // NOI18N
+        editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/stock-tool-pencil-22.png"))); // NOI18N
         editar.setText("Editar");
         editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,11 +209,16 @@ public class Principal extends javax.swing.JFrame {
         });
         pelis.add(editar);
 
-        eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\eliminar_peque.png")); // NOI18N
+        eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_peque.png"))); // NOI18N
         eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
         pelis.add(eliminar);
 
-        nueva.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\agregar.png")); // NOI18N
+        nueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
         nueva.setText("Nueva");
         nueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,11 +229,11 @@ public class Principal extends javax.swing.JFrame {
 
         tusPeliculas.setText("Tus peliculas...");
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\star.png")); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/star.png"))); // NOI18N
         jMenuItem4.setText("Favoritas");
         tusPeliculas.add(jMenuItem4);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\ojo22.png")); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo22.png"))); // NOI18N
         jMenuItem3.setText("Vistas");
         tusPeliculas.add(jMenuItem3);
 
@@ -314,7 +305,22 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void crearTabla (){
+        modelo = new DefaultTableModel();
+        tabla.setModel(modelo);
+        modelo.addColumn("Titulo");
+        modelo.addColumn("Director");
+        modelo.addColumn("Género");
+        modelo.addColumn("Año");
+        for (int i = 0; i < peli.consultar().size(); i++) {
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = peli.consultar().get(i).getTitulo();
+            fila[1] = peli.consultar().get(i).getDirector();
+            fila[2] = peli.consultar().get(i).getGenero();
+            fila[3] = peli.consultar().get(i).getAnnoEstreno();
+            modelo.addRow(fila);
+        }
+    }
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editarActionPerformed
@@ -393,6 +399,12 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+        EliminarPelicula eliminarPelicula = new EliminarPelicula();
+        eliminarPelicula.setVisible(true);
+    }//GEN-LAST:event_eliminarActionPerformed
 
     /**
      * @param args the command line arguments

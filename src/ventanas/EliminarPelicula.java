@@ -60,6 +60,7 @@ public class EliminarPelicula extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
+        jButtonVolver = new javax.swing.JButton();
 
         mensaje.setText("jLabel2");
 
@@ -135,6 +136,13 @@ public class EliminarPelicula extends javax.swing.JFrame {
             }
         });
 
+        jButtonVolver.setText("Volver");
+        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,6 +158,10 @@ public class EliminarPelicula extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonBuscar)))
                 .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonVolver)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +174,9 @@ public class EliminarPelicula extends javax.swing.JFrame {
                     .addComponent(jButtonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jButtonVolver)
+                .addContainerGap())
         );
 
         pack();
@@ -210,6 +224,13 @@ public class EliminarPelicula extends javax.swing.JFrame {
         crearTabla();
     }//GEN-LAST:event_aceptarActionPerformed
 
+    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Principal principal = new Principal();
+        principal.setVisible(true);
+    }//GEN-LAST:event_jButtonVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,6 +270,7 @@ public class EliminarPelicula extends javax.swing.JFrame {
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonVolver;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

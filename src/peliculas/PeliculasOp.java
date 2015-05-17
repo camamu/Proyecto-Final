@@ -15,7 +15,7 @@ public interface PeliculasOp {
 
 	public List<Pelicula> buscarPelicula(String titulo);
 
-	public void modificar(String campo, String contenidoOrigen, String contenidoFinal);
+	public void modificar(String contenidoOrigen, String titulo, String director, String genero, int annoEstreno, FileInputStream caratula);
 
 	public void eliminar(String titulo);
         

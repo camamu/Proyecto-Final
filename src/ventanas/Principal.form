@@ -148,7 +148,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="editar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Carlos\Desktop\stock-tool-pencil-22.png"/>
+                  <Image iconType="3" name="/imagenes/stock-tool-pencil-22.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
@@ -159,15 +159,18 @@
             <MenuItem class="javax.swing.JMenuItem" name="eliminar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Carlos\Desktop\eliminar_peque.png"/>
+                  <Image iconType="3" name="/imagenes/eliminar_peque.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="nueva">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Carlos\Desktop\agregar.png"/>
+                  <Image iconType="3" name="/imagenes/agregar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nueva"/>
               </Properties>
@@ -183,7 +186,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Carlos\Desktop\star.png"/>
+                      <Image iconType="3" name="/imagenes/star.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Favoritas"/>
                   </Properties>
@@ -191,7 +194,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Carlos\Desktop\ojo22.png"/>
+                      <Image iconType="3" name="/imagenes/ojo22.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Vistas"/>
                   </Properties>
@@ -341,7 +344,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Carlos\Desktop\iconoLupa.png"/>
+          <Image iconType="3" name="/imagenes/iconoLupa.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
