@@ -20,4 +20,6 @@ public interface PeliculasOp {
 	public void eliminar(String titulo);
         
         public List<Pelicula> filtrarCategoria(String categoria);
+        
+        public List<Pelicula> peliculaVista(String usuario);
 }

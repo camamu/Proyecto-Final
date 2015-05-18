@@ -235,6 +235,11 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo22.png"))); // NOI18N
         jMenuItem3.setText("Vistas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         tusPeliculas.add(jMenuItem3);
 
         pelis.add(tusPeliculas);
@@ -407,6 +412,12 @@ public class Principal extends javax.swing.JFrame {
         EliminarPelicula eliminarPelicula = new EliminarPelicula();
         eliminarPelicula.setVisible(true);
     }//GEN-LAST:event_eliminarActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Vistas v = new Vistas();
+        v.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

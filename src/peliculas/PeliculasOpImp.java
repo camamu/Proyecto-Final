@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -87,9 +88,9 @@ public class PeliculasOpImp implements PeliculasOp {
         List<Pelicula> peliculas = new ArrayList<Pelicula>();
         try {
             preparedStatement = conexion.prepareStatement("SELECT * FROM peliculas  WHERE titulo LIKE ?");
-            preparedStatement.setString(1, "%"+titulo+"%");
+            preparedStatement.setString(1, "%" + titulo + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {                
+            while (resultSet.next()) {
                 Pelicula pelicula = new Pelicula();
                 pelicula.setTitulo(resultSet.getString(1));
                 pelicula.setDirector(resultSet.getString(2));
@@ -120,7 +121,7 @@ public class PeliculasOpImp implements PeliculasOp {
             Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void modificar(String contenidoOrigen, String titulo, String director, String genero, int annoEstreno) {
         try {
             preparedStatement = conexion.prepareStatement("UPDATE peliculas SET titulo = ?, director = ?, genero = ?, annoEstreno = ? WHERE titulo = ?");
@@ -153,7 +154,7 @@ public class PeliculasOpImp implements PeliculasOp {
             preparedStatement = conexion.prepareStatement("SELECT * FROM peliculas  WHERE genero = ?");
             preparedStatement.setString(1, categoria);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {                
+            while (resultSet.next()) {
                 Pelicula pelicula = new Pelicula();
                 pelicula.setTitulo(resultSet.getString(1));
                 pelicula.setDirector(resultSet.getString(2));
@@ -168,27 +169,55 @@ public class PeliculasOpImp implements PeliculasOp {
             return null;
         }
     }
-    
-    public void RecuperarBLOB (String titulo) throws SQLException, IOException{
-        
-        try{
-                File file = new File("src/imagenes/caratula.jpg");
-                FileOutputStream fos = new FileOutputStream(file);                    
-                Blob bin = buscarPelicula(titulo).get(0).getCaratula();
-                InputStream inStream = bin.getBinaryStream();
-                int size = (int)bin.length();
-                byte[] buffer = new byte[size];
-                int length = -1;
-                while ((length = inStream.read(buffer)) != -1)
-                {
-                  fos.write(buffer, 0, length);                
-                }                                        
-            
-        }
-        catch (IOException ioe)
-        {
+
+    public void RecuperarBLOB(String titulo) throws SQLException, IOException {
+
+        try {
+            File file = new File("src/imagenes/caratula.jpg");
+            FileOutputStream fos = new FileOutputStream(file);
+            Blob bin = buscarPelicula(titulo).get(0).getCaratula();
+            InputStream inStream = bin.getBinaryStream();
+            int size = (int) bin.length();
+            byte[] buffer = new byte[size];
+            int length = -1;
+            while ((length = inStream.read(buffer)) != -1) {
+                fos.write(buffer, 0, length);
+            }
+
+        } catch (IOException ioe) {
             throw new IOException(ioe.getMessage());
         }
-                
+
     }
+
+    @Override
+    public List<Pelicula> peliculaVista(String usuario) {
+        String titulo;
+        try {
+            List<Pelicula> peliculas = new ArrayList<Pelicula>();
+            preparedStatement = conexion.prepareStatement("SELECT * FROM peliculasvistas WHERE usuario = ?");
+            preparedStatement.setString(1, usuario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                titulo = resultSet.getString(2);
+                PreparedStatement ps = conexion.prepareStatement("SELECT * FROM peliculas WHERE titulo = ?");
+                ps.setString(1, titulo);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Pelicula pelicula = new Pelicula();
+                    pelicula.setTitulo(rs.getString(1));
+                    pelicula.setDirector(rs.getString(2));
+                    pelicula.setGenero(rs.getString(3));
+                    pelicula.setAnnoEstreno(rs.getInt(4));
+                    peliculas.add(pelicula);
+                }
+            }
+            return peliculas;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+
+    }
+
 }
