@@ -52,7 +52,7 @@ public class EditarPelicula extends javax.swing.JFrame {
         jButtonSeleccionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        cGenero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +80,11 @@ public class EditarPelicula extends javax.swing.JFrame {
         jLabelGenero.setText("Genero:");
 
         jComboBoxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Otro", "Comedia", "Terror/Suspense", "Románticas", "Acción", "Musicales", "Animación", "Ciencia Ficción" }));
+        jComboBoxCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriasActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Año de Estreno:");
 
@@ -110,6 +115,8 @@ public class EditarPelicula extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
+        cGenero.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,7 +145,7 @@ public class EditarPelicula extends javax.swing.JFrame {
                             .addComponent(jTextFieldTitulo)
                             .addComponent(jTextFieldDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField1)
+                                .addComponent(cGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -160,7 +167,7 @@ public class EditarPelicula extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelGenero)
                             .addComponent(jComboBoxCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cGenero))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -219,9 +226,9 @@ public class EditarPelicula extends javax.swing.JFrame {
         int anno = Integer.parseInt(annoEstreno.getText());
         try {
             if (imgCaratula == null){
-                peli.modificar(tit, jTextFieldTitulo.getText(), jTextFieldDirector.getText(), jTextField1.getText(), anno);
+                peli.modificar(tit, jTextFieldTitulo.getText(), jTextFieldDirector.getText(), cGenero.getText(), anno);
             }else{
-                peli.modificar(tit, jTextFieldTitulo.getText(), jTextFieldDirector.getText(), jTextField1.getText(), anno, new FileInputStream(imgCaratula));
+                peli.modificar(tit, jTextFieldTitulo.getText(), jTextFieldDirector.getText(), cGenero.getText(), anno, new FileInputStream(imgCaratula));
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EditarPelicula.class.getName()).log(Level.SEVERE, null, ex);
@@ -252,10 +259,15 @@ public class EditarPelicula extends javax.swing.JFrame {
              tit = (String)modelo.getValueAt(fila, columna);
              jTextFieldTitulo.setText((String)modelo.getValueAt(fila, columna));
              jTextFieldDirector.setText((String)modelo.getValueAt(fila, columna+1));
-             jTextField1.setText((String)modelo.getValueAt(fila, columna+2));
+             cGenero.setText((String)modelo.getValueAt(fila, columna+2));
              annoEstreno.setText(annoo);
          }
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void jComboBoxCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriasActionPerformed
+        // TODO add your handling code here:
+        cGenero.setText((String) jComboBoxCategorias.getSelectedItem());
+    }//GEN-LAST:event_jComboBoxCategoriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,6 +306,7 @@ public class EditarPelicula extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField annoEstreno;
+    private javax.swing.JLabel cGenero;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSeleccionar;
     private javax.swing.JButton jButtonVolver;
@@ -305,7 +318,6 @@ public class EditarPelicula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRutaCaratula;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldDirector;
     private javax.swing.JTextField jTextFieldTitulo;
     private javax.swing.JTable tabla;

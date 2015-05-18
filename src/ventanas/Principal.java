@@ -25,9 +25,9 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    PeliculasOpImp peli = new PeliculasOpImp();
-    DefaultTableModel modelo;
-    String caratulaDefecto = "/imagenes/no_disponible.jpg";
+    private PeliculasOpImp peli = new PeliculasOpImp();
+    private DefaultTableModel modelo;
+    private String caratulaDefecto = "/imagenes/no_disponible.jpg";
     public Principal(){
         initComponents();
         setLocationRelativeTo(null);
@@ -323,6 +323,8 @@ public class Principal extends javax.swing.JFrame {
     }
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         // TODO add your handling code here:
+        EditarPelicula editarPelicula = new EditarPelicula();
+        editarPelicula.setVisible(true);
     }//GEN-LAST:event_editarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
