@@ -22,4 +22,6 @@ public interface PeliculasOp {
         public List<Pelicula> filtrarCategoria(String categoria);
         
         public List<Pelicula> peliculaVista(String usuario);
+        
+        public List<Pelicula> peliculaFavorita(String usuario);
 }

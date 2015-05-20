@@ -68,6 +68,8 @@ public class Vistas extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTFbusqueda = new javax.swing.JTextField();
+        buscar = new javax.swing.JButton();
 
         javax.swing.GroupLayout añadirPVistaLayout = new javax.swing.GroupLayout(añadirPVista.getContentPane());
         añadirPVista.getContentPane().setLayout(añadirPVistaLayout);
@@ -96,9 +98,18 @@ public class Vistas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
         jButton1.setText("Añadir");
 
         jButton2.setText("Volver");
+
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoLupa.png"))); // NOI18N
+        buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,16 +123,24 @@ public class Vistas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTFbusqueda)
+                        .addGap(18, 18, 18)
+                        .addComponent(buscar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap())
@@ -129,6 +148,23 @@ public class Vistas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        modelo = new DefaultTableModel();
+        tabla.setModel(modelo);
+        modelo.addColumn("Titulo");
+        modelo.addColumn("Director");
+        modelo.addColumn("Género");
+        modelo.addColumn("Año");
+        for (int i = 0; i < peli.buscarPelicula(jTFbusqueda.getText()).size(); i++) {
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getTitulo();
+            fila[1] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getDirector();
+            fila[2] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getGenero();
+            fila[3] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getAnnoEstreno();
+            modelo.addRow(fila);
+        }
+    }//GEN-LAST:event_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,9 +207,11 @@ public class Vistas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame añadirPVista;
+    private javax.swing.JButton buscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFbusqueda;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

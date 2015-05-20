@@ -1,11 +1,10 @@
 package ventanas;
 
-
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import peliculas.Pelicula;
 import peliculas.PeliculasOpImp;
@@ -15,7 +14,6 @@ import peliculas.PeliculasOpImp;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Carlos
@@ -28,7 +26,8 @@ public class Principal extends javax.swing.JFrame {
     private PeliculasOpImp peli = new PeliculasOpImp();
     private DefaultTableModel modelo;
     private String caratulaDefecto = "/imagenes/no_disponible.jpg";
-    public Principal(){
+
+    public Principal() {
         initComponents();
         setLocationRelativeTo(null);
         crearTabla();
@@ -66,14 +65,16 @@ public class Principal extends javax.swing.JFrame {
         eliminar = new javax.swing.JMenuItem();
         nueva = new javax.swing.JMenuItem();
         tusPeliculas = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        pFavoritas = new javax.swing.JMenuItem();
+        pVistas = new javax.swing.JMenuItem();
         prestamos = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         opciones = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+
+        InformacionPelicula.setTitle("Información");
 
         infPeliculaTitulo.setText("contenido del titulo");
 
@@ -156,6 +157,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Principal");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -184,7 +186,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguna", "Comedia", "Terror/Suspense", "Románticas", "Acción", "Musicales", "Animación", "Ciencia Ficción" }));
+        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguna", "Comedia", "Terror/Suspense", "Románticas", "Acción", "Musicales", "Animación", "Ciencia Ficción", "Otro" }));
         categoria.setToolTipText("Selecciona una categoria para filtrar por ella ");
         categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,18 +231,23 @@ public class Principal extends javax.swing.JFrame {
 
         tusPeliculas.setText("Tus peliculas...");
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/star.png"))); // NOI18N
-        jMenuItem4.setText("Favoritas");
-        tusPeliculas.add(jMenuItem4);
-
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo22.png"))); // NOI18N
-        jMenuItem3.setText("Vistas");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        pFavoritas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/star.png"))); // NOI18N
+        pFavoritas.setText("Favoritas");
+        pFavoritas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                pFavoritasActionPerformed(evt);
             }
         });
-        tusPeliculas.add(jMenuItem3);
+        tusPeliculas.add(pFavoritas);
+
+        pVistas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo22.png"))); // NOI18N
+        pVistas.setText("Vistas");
+        pVistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pVistasActionPerformed(evt);
+            }
+        });
+        tusPeliculas.add(pVistas);
 
         pelis.add(tusPeliculas);
 
@@ -259,6 +266,11 @@ public class Principal extends javax.swing.JFrame {
         opciones.setText("Opciones");
 
         jMenuItem5.setText("Cerrar Sesión");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         opciones.add(jMenuItem5);
 
         jMenuItem6.setText("Salir");
@@ -310,7 +322,7 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void crearTabla (){
+    private void crearTabla() {
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
@@ -334,40 +346,42 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PeliculasOpImp peliculas = new PeliculasOpImp();
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
         modelo.addColumn("Director");
         modelo.addColumn("Género");
         modelo.addColumn("Año");
-        for (int i = 0; i < peliculas.buscarPelicula(jTextBusqueda.getText()).size(); i++) {
+        for (int i = 0; i < peli.buscarPelicula(jTextBusqueda.getText()).size(); i++) {
             Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = peliculas.buscarPelicula(jTextBusqueda.getText()).get(i).getTitulo();
-            fila[1] = peliculas.buscarPelicula(jTextBusqueda.getText()).get(i).getDirector();
-            fila[2] = peliculas.buscarPelicula(jTextBusqueda.getText()).get(i).getGenero();
-            fila[3] = peliculas.buscarPelicula(jTextBusqueda.getText()).get(i).getAnnoEstreno();
+            fila[0] = peli.buscarPelicula(jTextBusqueda.getText()).get(i).getTitulo();
+            fila[1] = peli.buscarPelicula(jTextBusqueda.getText()).get(i).getDirector();
+            fila[2] = peli.buscarPelicula(jTextBusqueda.getText()).get(i).getGenero();
+            fila[3] = peli.buscarPelicula(jTextBusqueda.getText()).get(i).getAnnoEstreno();
             modelo.addRow(fila);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaActionPerformed
         // TODO add your handling code here:
-        PeliculasOpImp peliculas = new PeliculasOpImp();
-        DefaultTableModel modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
         modelo.addColumn("Director");
         modelo.addColumn("Género");
         modelo.addColumn("Año");
-        System.out.println((String)categoria.getSelectedItem());
-        for (int i = 0; i < peliculas.filtrarCategoria((String)categoria.getSelectedItem()).size(); i++) {
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = peliculas.filtrarCategoria(jTextBusqueda.getText()).get(i).getTitulo();
-            fila[1] = peliculas.filtrarCategoria(jTextBusqueda.getText()).get(i).getDirector();
-            fila[2] = peliculas.filtrarCategoria(jTextBusqueda.getText()).get(i).getGenero();
-            fila[3] = peliculas.filtrarCategoria(jTextBusqueda.getText()).get(i).getAnnoEstreno();
-            modelo.addRow(fila);
+        String catSeleccionada = (String) categoria.getSelectedItem();
+        if (catSeleccionada.equals("Ninguna")) {
+            crearTabla();
+        } else {
+            for (int i = 0; i < peli.filtrarCategoria(catSeleccionada).size(); i++) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = peli.filtrarCategoria(catSeleccionada).get(i).getTitulo();
+                fila[1] = peli.filtrarCategoria(catSeleccionada).get(i).getDirector();
+                fila[2] = peli.filtrarCategoria(catSeleccionada).get(i).getGenero();
+                fila[3] = peli.filtrarCategoria(catSeleccionada).get(i).getAnnoEstreno();
+                modelo.addRow(fila);
+            }
         }
     }//GEN-LAST:event_categoriaActionPerformed
 
@@ -381,28 +395,28 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int fila = tabla.rowAtPoint(evt.getPoint());
         int columna = tabla.columnAtPoint(evt.getPoint());
-        if ((fila > -1) && (columna == 0)){
-           InformacionPelicula.setSize(472, 359);
-           InformacionPelicula.setVisible(true);
-            for (Pelicula p : peli.buscarPelicula((String)modelo.getValueAt(fila, columna))) {
+        if ((fila > -1) && (columna == 0)) {
+            InformacionPelicula.setSize(472, 359);
+            InformacionPelicula.setVisible(true);
+            for (Pelicula p : peli.buscarPelicula((String) modelo.getValueAt(fila, columna))) {
                 infPeliculaTitulo.setText(p.getTitulo());
                 infPeliculaDirector.setText(p.getDirector());
                 infPeliculaGenero.setText(p.getGenero());
                 infPeliculaAnno.setText(String.valueOf(p.getAnnoEstreno()));
-               try {
-                   if (p.getCaratula() == null){
+                try {
+                    if (p.getCaratula() == null) {
                         System.out.println("no hay foto");
-                   }else {
-                        peli.RecuperarBLOB((String)modelo.getValueAt(fila, columna));
+                    } else {
+                        peli.RecuperarBLOB((String) modelo.getValueAt(fila, columna));
                         caratulaDefecto = "/imagenes/caratula.jpg";
                         jPanel1 = new Panel(caratulaDefecto);
                         jPanel1.updateUI();
-                   }
-               } catch (SQLException ex) {
-                   Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-               } catch (IOException ex) {
-                   Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-               }
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_tablaMouseClicked
@@ -413,11 +427,32 @@ public class Principal extends javax.swing.JFrame {
         eliminarPelicula.setVisible(true);
     }//GEN-LAST:event_eliminarActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void pVistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pVistasActionPerformed
+        try {
+            Vistas v = new Vistas();
+            v.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pVistasActionPerformed
+
+    private void pFavoritasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pFavoritasActionPerformed
+        try {
+            Favoritas f = new Favoritas();
+            f.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pFavoritasActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        Vistas v = new Vistas();
-        v.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        this.dispose();
+        File f = new File("usuario.txt");
+        f.delete();
+        Login l = new Login();
+        l.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,8 +507,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
@@ -481,6 +514,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextBusqueda;
     private javax.swing.JMenuItem nueva;
     private javax.swing.JMenu opciones;
+    private javax.swing.JMenuItem pFavoritas;
+    private javax.swing.JMenuItem pVistas;
     private javax.swing.JMenu pelis;
     private javax.swing.JMenu prestamos;
     private javax.swing.JTable tabla;

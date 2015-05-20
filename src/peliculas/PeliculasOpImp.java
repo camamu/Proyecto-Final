@@ -217,7 +217,35 @@ public class PeliculasOpImp implements PeliculasOp {
             System.out.println(ex);
             return null;
         }
+    }
 
+    @Override
+    public List<Pelicula> peliculaFavorita(String usuario) {
+        String titulo;
+        try {
+            List<Pelicula> peliculas = new ArrayList<Pelicula>();
+            preparedStatement = conexion.prepareStatement("SELECT * FROM peliculasfavoritas WHERE usuario = ?");
+            preparedStatement.setString(1, usuario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                titulo = resultSet.getString(2);
+                PreparedStatement ps = conexion.prepareStatement("SELECT * FROM peliculas WHERE titulo = ?");
+                ps.setString(1, titulo);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Pelicula pelicula = new Pelicula();
+                    pelicula.setTitulo(rs.getString(1));
+                    pelicula.setDirector(rs.getString(2));
+                    pelicula.setGenero(rs.getString(3));
+                    pelicula.setAnnoEstreno(rs.getInt(4));
+                    peliculas.add(pelicula);
+                }
+            }
+            return peliculas;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
     }
 
 }

@@ -87,7 +87,6 @@ public class InsertarPelicula extends javax.swing.JFrame {
         jLabelRutaCaratula.setText("Ningun Archivo selecionado...");
         jLabelRutaCaratula.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
-        jButtonGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Carlos\\Desktop\\st_0426_save_button.jpg")); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
