@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import peliculas.Pelicula;
 import peliculas.PeliculasOpImp;
@@ -29,6 +30,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         setLocationRelativeTo(null);
         crearTabla();
     }
@@ -397,6 +399,7 @@ public class Principal extends javax.swing.JFrame {
         int columna = tabla.columnAtPoint(evt.getPoint());
         if ((fila > -1) && (columna == 0)) {
             InformacionPelicula.setSize(472, 359);
+            InformacionPelicula.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
             InformacionPelicula.setVisible(true);
             for (Pelicula p : peli.buscarPelicula((String) modelo.getValueAt(fila, columna))) {
                 infPeliculaTitulo.setText(p.getTitulo());

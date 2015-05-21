@@ -24,4 +24,12 @@ public interface PeliculasOp {
         public List<Pelicula> peliculaVista(String usuario);
         
         public List<Pelicula> peliculaFavorita(String usuario);
+        
+        public void marcarComoVista(String titulo);
+        
+        public void marcarComoFavorita(String titulo);
+        
+        public void eliminarFavorita(String titulo);
+        
+        public void eliminarVista(String titulo);
 }

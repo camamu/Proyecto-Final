@@ -25,13 +25,13 @@ public class Vistas extends javax.swing.JFrame {
      */
     private PeliculasOpImp peli = new PeliculasOpImp();
     private DefaultTableModel modelo;
-
+    String titulo;
     public Vistas() throws IOException {
         initComponents();
-        crearTabla();
+        crearTablaVistas();
     }
 
-    private void crearTabla() throws FileNotFoundException, IOException {
+    private void crearTablaVistas() throws FileNotFoundException, IOException {
         String cadena;
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
@@ -53,6 +53,22 @@ public class Vistas extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
     }
+    private void crearTabla() {
+        modelo = new DefaultTableModel();
+        jTable1.setModel(modelo);
+        modelo.addColumn("Titulo");
+        modelo.addColumn("Director");
+        modelo.addColumn("Género");
+        modelo.addColumn("Año");
+        for (int i = 0; i < peli.consultar().size(); i++) {
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = peli.consultar().get(i).getTitulo();
+            fila[1] = peli.consultar().get(i).getDirector();
+            fila[2] = peli.consultar().get(i).getGenero();
+            fila[3] = peli.consultar().get(i).getAnnoEstreno();
+            modelo.addRow(fila);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,23 +79,108 @@ public class Vistas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        añadirPVista = new javax.swing.JFrame();
+        annadirPVista = new javax.swing.JFrame();
+        jButton3 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        mensaje = new javax.swing.JDialog();
+        si = new javax.swing.JButton();
+        no = new javax.swing.JButton();
+        jLInformacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTFbusqueda = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout añadirPVistaLayout = new javax.swing.GroupLayout(añadirPVista.getContentPane());
-        añadirPVista.getContentPane().setLayout(añadirPVistaLayout);
-        añadirPVistaLayout.setHorizontalGroup(
-            añadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoLupa.png"))); // NOI18N
+        jButton3.setText("Buscar");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout annadirPVistaLayout = new javax.swing.GroupLayout(annadirPVista.getContentPane());
+        annadirPVista.getContentPane().setLayout(annadirPVistaLayout);
+        annadirPVistaLayout.setHorizontalGroup(
+            annadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, annadirPVistaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(annadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(annadirPVistaLayout.createSequentialGroup()
+                        .addComponent(jTextField1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
+                .addContainerGap())
         );
-        añadirPVistaLayout.setVerticalGroup(
-            añadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        annadirPVistaLayout.setVerticalGroup(
+            annadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(annadirPVistaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(annadirPVistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        si.setText("Sí");
+        si.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siActionPerformed(evt);
+            }
+        });
+
+        no.setText("No");
+
+        jLInformacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLInformacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLInformacion.setText("jLabel2");
+
+        javax.swing.GroupLayout mensajeLayout = new javax.swing.GroupLayout(mensaje.getContentPane());
+        mensaje.getContentPane().setLayout(mensajeLayout);
+        mensajeLayout.setHorizontalGroup(
+            mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(mensajeLayout.createSequentialGroup()
+                        .addGap(0, 341, Short.MAX_VALUE)
+                        .addComponent(si, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        mensajeLayout.setVerticalGroup(
+            mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mensajeLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLInformacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(no, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(si, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -100,6 +201,11 @@ public class Vistas extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
         jButton1.setText("Añadir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
 
@@ -111,6 +217,10 @@ public class Vistas extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Tus Peliculas Vistas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,6 +228,7 @@ public class Vistas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -133,7 +244,9 @@ public class Vistas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscar))
@@ -165,6 +278,36 @@ public class Vistas extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int fila = jTable1.rowAtPoint(evt.getPoint());
+        int columna = jTable1.columnAtPoint(evt.getPoint());
+        if ((fila > -1) && (columna == 0)) {
+            titulo = (String) modelo.getValueAt(fila, columna);
+            mensaje.setSize(325, 150);
+            mensaje.setLocationRelativeTo(null);
+            mensaje.setVisible(true);
+            jLInformacion.setText("¿Quieres añadir "+titulo+" como pelicula vista?");
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        annadirPVista.setSize(520, 375);
+        annadirPVista.setLocationRelativeTo(null);
+        crearTabla();
+        annadirPVista.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siActionPerformed
+        peli.marcarComoVista(titulo);
+        mensaje.dispose();
+        try {
+            crearTablaVistas();
+        } catch (IOException ex) {
+            Logger.getLogger(Vistas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_siActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,12 +349,21 @@ public class Vistas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFrame añadirPVista;
+    private javax.swing.JFrame annadirPVista;
     private javax.swing.JButton buscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLInformacion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFbusqueda;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JDialog mensaje;
+    private javax.swing.JButton no;
+    private javax.swing.JButton si;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

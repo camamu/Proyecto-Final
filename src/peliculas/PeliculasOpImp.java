@@ -1,8 +1,11 @@
 package peliculas;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -246,6 +249,48 @@ public class PeliculasOpImp implements PeliculasOp {
             System.out.println(ex);
             return null;
         }
+    }
+
+    @Override
+    public void marcarComoVista(String titulo) {
+        try {
+            FileReader f = new FileReader("usuario.txt");
+            BufferedReader b = new BufferedReader(f);
+            preparedStatement = conexion.prepareStatement("INSERT INTO peliculasvistas (usuario, pelicula) VALUES( ?, ? )");
+            preparedStatement.setString(1, b.readLine());
+            preparedStatement.setString(2, titulo);
+            preparedStatement.execute();
+        } catch (FileNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void marcarComoFavorita(String titulo) {
+        try {
+            FileReader f = new FileReader("usuario.txt");
+            BufferedReader b = new BufferedReader(f);
+            preparedStatement = conexion.prepareStatement("INSERT INTO peliculasFavoritas (usuario, pelicula) VALUES( ?, ? )");
+            preparedStatement.setString(1, b.readLine());
+            preparedStatement.setString(2, titulo);
+            preparedStatement.execute();
+        } catch (FileNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void eliminarFavorita(String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void eliminarVista(String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
