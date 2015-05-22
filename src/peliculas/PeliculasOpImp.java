@@ -285,9 +285,9 @@ public class PeliculasOpImp implements PeliculasOp {
     @Override
     public void eliminarFavorita(String titulo, String usuario) {
         try {
-            preparedStatement = conexion.prepareStatement("DELETE FROM peliculasFavoritas WHERE titulo = ? AND usuario = ?");
+            preparedStatement = conexion.prepareStatement("DELETE FROM peliculasFavoritas WHERE pelicula = ? AND usuario = ?");
             preparedStatement.setString(1, titulo);
-            preparedStatement.setString(1, usuario);
+            preparedStatement.setString(2, usuario);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);
@@ -295,8 +295,15 @@ public class PeliculasOpImp implements PeliculasOp {
     }
 
     @Override
-    public void eliminarVista(String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminarVista(String titulo, String usuario) {
+        try {
+            preparedStatement = conexion.prepareStatement("DELETE FROM peliculasvistas WHERE pelicula = ? AND usuario = ?");
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, usuario);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

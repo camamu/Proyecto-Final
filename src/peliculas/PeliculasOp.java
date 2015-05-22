@@ -31,5 +31,5 @@ public interface PeliculasOp {
         
         public void eliminarFavorita(String titulo, String usuario);
         
-        public void eliminarVista(String titulo);
+        public void eliminarVista(String titulo, String usuario);
 }
