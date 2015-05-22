@@ -29,7 +29,7 @@ public interface PeliculasOp {
         
         public void marcarComoFavorita(String titulo);
         
-        public void eliminarFavorita(String titulo);
+        public void eliminarFavorita(String titulo, String usuario);
         
         public void eliminarVista(String titulo);
 }

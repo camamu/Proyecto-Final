@@ -14,7 +14,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -284,8 +283,15 @@ public class PeliculasOpImp implements PeliculasOp {
     }
 
     @Override
-    public void eliminarFavorita(String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminarFavorita(String titulo, String usuario) {
+        try {
+            preparedStatement = conexion.prepareStatement("DELETE FROM peliculasFavoritas WHERE titulo = ? AND usuario = ?");
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(1, usuario);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PeliculasOpImp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

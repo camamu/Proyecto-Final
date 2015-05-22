@@ -89,11 +89,14 @@ public class Favoritas extends javax.swing.JFrame {
         buscarAnnadir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        annadir = new javax.swing.JButton();
         volver = new javax.swing.JButton();
         jTFbusqueda = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         annadirPFavorita.setTitle("Añadir Pelicula Favorita");
         annadirPFavorita.setResizable(false);
@@ -169,14 +172,6 @@ public class Favoritas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        annadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
-        annadir.setText("Añadir");
-        annadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                annadirActionPerformed(evt);
-            }
-        });
-
         volver.setText("Volver");
         volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +191,25 @@ public class Favoritas extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Tus Peliculas Favoritas");
 
+        jMenu1.setText("Opciones");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        jMenuItem1.setText("Añadir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_peque.png"))); // NOI18N
+        jMenuItem2.setText("Eliminar");
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -207,8 +221,6 @@ public class Favoritas extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(annadir)
-                        .addGap(18, 18, 18)
                         .addComponent(volver))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jTFbusqueda)
@@ -221,16 +233,14 @@ public class Favoritas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(annadir)
-                    .addComponent(volver))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(volver)
                 .addContainerGap())
         );
 
@@ -240,14 +250,6 @@ public class Favoritas extends javax.swing.JFrame {
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         this.dispose();
     }//GEN-LAST:event_volverActionPerformed
-
-    private void annadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annadirActionPerformed
-        // TODO add your handling code here
-        annadirPFavorita.setVisible(true);
-        annadirPFavorita.setSize(460, 395);
-        annadirPFavorita.setLocationRelativeTo(null);
-        crearTabla();
-    }//GEN-LAST:event_annadirActionPerformed
 
     private void buscarAnnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAnnadirActionPerformed
         modelo = new DefaultTableModel();
@@ -283,6 +285,13 @@ public class Favoritas extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        annadirPFavorita.setVisible(true);
+        annadirPFavorita.setSize(460, 395);
+        annadirPFavorita.setLocationRelativeTo(null);
+        crearTabla();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,12 +331,15 @@ public class Favoritas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton annadir;
     private javax.swing.JFrame annadirPFavorita;
     private javax.swing.JButton buscar;
     private javax.swing.JButton buscarAnnadir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFbusqueda;
