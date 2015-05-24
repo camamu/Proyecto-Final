@@ -1,18 +1,15 @@
 package peliculas;
 
-import java.sql.ResultSet;
+import java.util.List;
 
 public interface PeliculasPrestadasOp {
 
-	public void insertar(int id, int idPelicula, String nombrePersPres,
-			String recuperada, int idUsuario);
+	public void insertar(String pelicula, String usuario, String nombrePers);
 
-	public ResultSet consultar();
+	public List<PeliculasPrestadas> consultar(String usuario);
         
-	public void consultarCampo(String campo, String contenido);
-
-	public void modificar(String campo, String contenido);
-
-	public void eliminar(int id);
+	public List<PeliculasPrestadas> consultarPelicula(String usuario, String titulo);
+        
+	public void eliminar(String usuario, String titulo);
 
 }

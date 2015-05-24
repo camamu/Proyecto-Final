@@ -57,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jTextBusqueda = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         categoria = new javax.swing.JComboBox();
         filtrarPor = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -70,8 +70,8 @@ public class Principal extends javax.swing.JFrame {
         pFavoritas = new javax.swing.JMenuItem();
         pVistas = new javax.swing.JMenuItem();
         prestamos = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        nuevoPrestamo = new javax.swing.JMenuItem();
+        verPrestamos = new javax.swing.JMenuItem();
         opciones = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -180,11 +180,10 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoLupa.png"))); // NOI18N
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoLupa.png"))); // NOI18N
+        buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buscarActionPerformed(evt);
             }
         });
 
@@ -257,11 +256,17 @@ public class Principal extends javax.swing.JFrame {
 
         prestamos.setText("Prestamos");
 
-        jMenuItem1.setText("Nuevo");
-        prestamos.add(jMenuItem1);
+        nuevoPrestamo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        nuevoPrestamo.setText("Nuevo");
+        prestamos.add(nuevoPrestamo);
 
-        jMenuItem2.setText("Ver");
-        prestamos.add(jMenuItem2);
+        verPrestamos.setText("Ver");
+        verPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verPrestamosActionPerformed(evt);
+            }
+        });
+        prestamos.add(verPrestamos);
 
         jMenuBar1.add(prestamos);
 
@@ -301,8 +306,8 @@ public class Principal extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextBusqueda)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buscar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -310,9 +315,9 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(titulo))
+                    .addComponent(buscar)
+                    .addComponent(titulo)
+                    .addComponent(jTextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,7 +351,7 @@ public class Principal extends javax.swing.JFrame {
         editarPelicula.setVisible(true);
     }//GEN-LAST:event_editarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
@@ -362,7 +367,7 @@ public class Principal extends javax.swing.JFrame {
             fila[3] = peli.buscarPelicula(jTextBusqueda.getText()).get(i).getAnnoEstreno();
             modelo.addRow(fila);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buscarActionPerformed
 
     private void categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaActionPerformed
         // TODO add your handling code here:
@@ -457,6 +462,12 @@ public class Principal extends javax.swing.JFrame {
         l.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void verPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verPrestamosActionPerformed
+        // TODO add your handling code here:
+        Prestamos prestamos = new Prestamos();
+        prestamos.setVisible(true);
+    }//GEN-LAST:event_verPrestamosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -494,6 +505,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame InformacionPelicula;
+    private javax.swing.JButton buscar;
     private javax.swing.JComboBox categoria;
     private javax.swing.JMenuItem editar;
     private javax.swing.JMenuItem eliminar;
@@ -502,20 +514,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel infPeliculaDirector;
     private javax.swing.JLabel infPeliculaGenero;
     private javax.swing.JLabel infPeliculaTitulo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextBusqueda;
     private javax.swing.JMenuItem nueva;
+    private javax.swing.JMenuItem nuevoPrestamo;
     private javax.swing.JMenu opciones;
     private javax.swing.JMenuItem pFavoritas;
     private javax.swing.JMenuItem pVistas;
@@ -524,5 +534,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTable tabla;
     private javax.swing.JLabel titulo;
     private javax.swing.JMenu tusPeliculas;
+    private javax.swing.JMenuItem verPrestamos;
     // End of variables declaration//GEN-END:variables
 }
