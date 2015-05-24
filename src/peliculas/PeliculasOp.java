@@ -25,6 +25,10 @@ public interface PeliculasOp {
         
         public List<Pelicula> peliculaFavorita(String usuario);
         
+        public List<Pelicula> buscarFavorita(String usuario, String titulo);
+        
+        public List<Pelicula> buscarVista(String usuario, String titulo);
+        
         public void marcarComoVista(String titulo);
         
         public void marcarComoFavorita(String titulo);

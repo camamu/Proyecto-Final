@@ -26,10 +26,20 @@ public class Favoritas extends javax.swing.JFrame {
     private final PeliculasOpImp peli = new PeliculasOpImp();
     private DefaultTableModel modelo;
     String titulo;
+
     public Favoritas() throws IOException {
         initComponents();
         setLocationRelativeTo(null);
         crearTablaFavoritas();
+    }
+
+    private String nombreUsuario() throws IOException {
+        String usuario;
+        FileReader f = new FileReader("usuario.txt");
+        try (BufferedReader b = new BufferedReader(f)) {
+            usuario = b.readLine();
+            return usuario;
+        }
     }
 
     private void crearTabla() {
@@ -50,18 +60,13 @@ public class Favoritas extends javax.swing.JFrame {
     }
 
     private void crearTablaFavoritas() throws FileNotFoundException, IOException {
-        String cadena;
+        String cadena = nombreUsuario();
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
         modelo.addColumn("Director");
         modelo.addColumn("Género");
         modelo.addColumn("Año");
-        FileReader f = new FileReader("usuario.txt");
-        try (BufferedReader b = new BufferedReader(f)) {
-            cadena = b.readLine();
-            System.out.println(cadena);
-        }
         for (int i = 0; i < peli.peliculaFavorita(cadena).size(); i++) {
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = peli.peliculaFavorita(cadena).get(i).getTitulo();
@@ -300,19 +305,36 @@ public class Favoritas extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
+        String usuario = null;
+        try {
+            usuario = nombreUsuario();
+        } catch (IOException ex) {
+            Logger.getLogger(Favoritas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
         modelo.addColumn("Director");
         modelo.addColumn("Género");
         modelo.addColumn("Año");
-        for (int i = 0; i < peli.buscarPelicula(jTFbusqueda.getText()).size(); i++) {
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getTitulo();
-            fila[1] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getDirector();
-            fila[2] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getGenero();
-            fila[3] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getAnnoEstreno();
-            modelo.addRow(fila);
+        if (!jTFbusqueda.getText().equals(null)) {
+            for (int i = 0; i < peli.buscarFavorita(usuario, jTFbusqueda.getText()).size(); i++) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = peli.buscarFavorita(usuario, jTFbusqueda.getText()).get(i).getTitulo();
+                fila[1] = peli.buscarFavorita(usuario, jTFbusqueda.getText()).get(i).getDirector();
+                fila[2] = peli.buscarFavorita(usuario, jTFbusqueda.getText()).get(i).getGenero();
+                fila[3] = peli.buscarFavorita(usuario, jTFbusqueda.getText()).get(i).getAnnoEstreno();
+                modelo.addRow(fila);
+            }
+        } else {
+            for (int i = 0; i < peli.peliculaFavorita(usuario).size(); i++) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = peli.peliculaFavorita(usuario).get(i).getTitulo();
+                fila[1] = peli.peliculaFavorita(usuario).get(i).getDirector();
+                fila[2] = peli.peliculaFavorita(usuario).get(i).getGenero();
+                fila[3] = peli.peliculaFavorita(usuario).get(i).getAnnoEstreno();
+                modelo.addRow(fila);
+            }
         }
     }//GEN-LAST:event_buscarActionPerformed
 
@@ -324,7 +346,7 @@ public class Favoritas extends javax.swing.JFrame {
             mensaje.setSize(600, 150);
             mensaje.setLocationRelativeTo(null);
             mensaje.setVisible(true);
-            jLInformacion.setText("¿Quieres añadir "+titulo+" como pelicula vista?");
+            jLInformacion.setText("¿Quieres añadir " + titulo + " como pelicula vista?");
         }
     }//GEN-LAST:event_tabla2MouseClicked
 
@@ -375,7 +397,7 @@ public class Favoritas extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 

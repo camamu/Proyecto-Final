@@ -30,7 +30,16 @@ public class Vistas extends javax.swing.JFrame {
         initComponents();
         crearTablaVistas();
     }
-
+    
+    private String nombreUsuario() throws IOException {
+        String usuario;
+        FileReader f = new FileReader("usuario.txt");
+        try (BufferedReader b = new BufferedReader(f)) {
+            usuario = b.readLine();
+            return usuario;
+        }
+    }
+    
     private void crearTablaVistas() throws FileNotFoundException, IOException {
         String cadena;
         modelo = new DefaultTableModel();
@@ -263,19 +272,36 @@ public class Vistas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String usuario = null;
+        try {
+            usuario = nombreUsuario();
+        } catch (IOException ex) {
+            Logger.getLogger(Favoritas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         modelo.addColumn("Titulo");
         modelo.addColumn("Director");
         modelo.addColumn("Género");
         modelo.addColumn("Año");
-        for (int i = 0; i < peli.buscarPelicula(jTFbusqueda.getText()).size(); i++) {
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getTitulo();
-            fila[1] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getDirector();
-            fila[2] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getGenero();
-            fila[3] = peli.buscarPelicula(jTFbusqueda.getText()).get(i).getAnnoEstreno();
-            modelo.addRow(fila);
+        if (!jTFbusqueda.getText().equals(null)) {
+            for (int i = 0; i < peli.buscarVista(usuario, jTFbusqueda.getText()).size(); i++) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = peli.buscarVista(usuario, jTFbusqueda.getText()).get(i).getTitulo();
+                fila[1] = peli.buscarVista(usuario, jTFbusqueda.getText()).get(i).getDirector();
+                fila[2] = peli.buscarVista(usuario, jTFbusqueda.getText()).get(i).getGenero();
+                fila[3] = peli.buscarVista(usuario, jTFbusqueda.getText()).get(i).getAnnoEstreno();
+                modelo.addRow(fila);
+            }
+        } else {
+            for (int i = 0; i < peli.peliculaVista(usuario).size(); i++) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = peli.peliculaVista(usuario).get(i).getTitulo();
+                fila[1] = peli.peliculaVista(usuario).get(i).getDirector();
+                fila[2] = peli.peliculaVista(usuario).get(i).getGenero();
+                fila[3] = peli.peliculaVista(usuario).get(i).getAnnoEstreno();
+                modelo.addRow(fila);
+            }
         }
     }//GEN-LAST:event_buscarActionPerformed
 
