@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import peliculas.PeliculasOpImp;
@@ -24,6 +25,8 @@ public class EditarPelicula extends javax.swing.JFrame {
     String tit = "";
     public EditarPelicula() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
+        setLocationRelativeTo(null);
         crearTabla();
     }
 
@@ -54,12 +57,14 @@ public class EditarPelicula extends javax.swing.JFrame {
         cGenero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Editar Pelicula");
 
         jLabelRutaCaratula.setText("Ningun Archivo selecionado...");
         jLabelRutaCaratula.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         jLabelTitulo.setText("Titulo:");
 
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/st_0426_save_button.jpg"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

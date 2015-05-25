@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import peliculas.PeliculasOpImp;
 
@@ -28,6 +29,7 @@ public class EliminarVista extends javax.swing.JFrame {
     String titulo;
     public EliminarVista() throws IOException {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         setLocationRelativeTo(null);
         crearTablaVistas();
     }
@@ -180,6 +182,7 @@ public class EliminarVista extends javax.swing.JFrame {
         titulo = (String)modelo.getValueAt(fila, columna);
         if ((fila > -1) && (columna == 0)){
            jDialog1.setSize(436, 175);
+           jDialog1.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
            jDialog1.setLocationRelativeTo(null);
            jDialog1.setVisible(true);
            mensaje.setText("Vas a eliminar la pelicula " + titulo + ". ¿Estas Seguro?");

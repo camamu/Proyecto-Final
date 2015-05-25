@@ -1,9 +1,9 @@
 package ventanas;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import peliculas.PeliculasOpImp;
@@ -13,7 +13,6 @@ import peliculas.PeliculasOpImp;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Carlos
@@ -24,9 +23,13 @@ public class InsertarPelicula extends javax.swing.JFrame {
      * Creates new form InsertarPelicula
      */
     File imgCaratula = null;
+
     public InsertarPelicula() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
+        setLocationRelativeTo(null);
     }
+
     private File dialogoSeleccionarFichero() {
         File fichero = null;
         int rv;
@@ -39,6 +42,7 @@ public class InsertarPelicula extends javax.swing.JFrame {
         }
         return fichero;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +67,7 @@ public class InsertarPelicula extends javax.swing.JFrame {
         jButtonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nueva Pelicula");
         setResizable(false);
 
         jLabelTitulo.setText("Titulo:");
@@ -87,6 +92,7 @@ public class InsertarPelicula extends javax.swing.JFrame {
         jLabelRutaCaratula.setText("Ningun Archivo selecionado...");
         jLabelRutaCaratula.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/st_0426_save_button.jpg"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,18 +184,40 @@ public class InsertarPelicula extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         try {
-            String categoria = (String) jComboBoxCategorias.getSelectedItem();
-            String annoEstr = annoEstreno.getText();
-            int anno = Integer.parseInt(annoEstr);
+            String categoria = "";
+            String annoEstr = "";
             PeliculasOpImp peliculasOpImp = new PeliculasOpImp();
-            if (imgCaratula != null){
-                peliculasOpImp.insertar(jTextFieldTitulo.getText(), jTextFieldDirector.getText(), categoria, anno, new FileInputStream(imgCaratula));
-            }else{
-                peliculasOpImp.insertar(jTextFieldTitulo.getText(), jTextFieldDirector.getText(), categoria, anno);
+            if (imgCaratula != null) {
+                if (peliculasOpImp.controlDuplicados(jTextFieldTitulo.getName())) {
+                    if (jTextFieldTitulo.getText().equals("") || jTextFieldDirector.getText().equals("") || categoria.equals("") || annoEstr.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Faltan campos Por rellenar");
+                    } else {
+                        categoria = (String) jComboBoxCategorias.getSelectedItem();
+                        annoEstr = annoEstreno.getText();
+                        int anno = Integer.parseInt(annoEstr);
+                        peliculasOpImp.insertar(jTextFieldTitulo.getText(), jTextFieldDirector.getText(), categoria, anno, new FileInputStream(imgCaratula));
+                        JOptionPane.showMessageDialog(null, "La pelicula se ha añadido correctamente");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La pelicula ya existe");
+                }
+            } else {
+                if (peliculasOpImp.controlDuplicados(jTextFieldTitulo.getName())) {
+                    if (jTextFieldTitulo.getText().equals("") || jTextFieldDirector.getText().equals("") || categoria.equals("") || annoEstr.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Faltan campos por rellenar");
+                    } else {
+                        categoria = (String) jComboBoxCategorias.getSelectedItem();
+                        annoEstr = annoEstreno.getText();
+                        int anno = Integer.parseInt(annoEstr);
+                        peliculasOpImp.insertar(jTextFieldTitulo.getText(), jTextFieldDirector.getText(), categoria, anno);
+                        JOptionPane.showMessageDialog(null, "La pelicula se ha añadido correctamente");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La pelicula ya existe");
+                }
             }
-            JOptionPane mensaje = new JOptionPane("Pelicula Añadida Correctamente!!");
         } catch (FileNotFoundException ex) {
-            JOptionPane mensaje = new JOptionPane("No se ha encontrado el Archivo");
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo :'(");
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

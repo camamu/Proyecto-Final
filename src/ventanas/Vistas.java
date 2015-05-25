@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import peliculas.PeliculasOpImp;
 
@@ -28,6 +29,8 @@ public class Vistas extends javax.swing.JFrame {
     String titulo;
     public Vistas() throws IOException {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
+        setLocationRelativeTo(null);
         crearTablaVistas();
     }
     
@@ -311,6 +314,7 @@ public class Vistas extends javax.swing.JFrame {
         if ((fila > -1) && (columna == 0)) {
             titulo = (String) modelo.getValueAt(fila, columna);
             mensaje.setSize(325, 150);
+            mensaje.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
             mensaje.setLocationRelativeTo(null);
             mensaje.setVisible(true);
             jLInformacion.setText("¿Quieres añadir "+titulo+" como pelicula vista?");
@@ -319,6 +323,7 @@ public class Vistas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         annadirPVista.setSize(520, 375);
+        annadirPVista.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         annadirPVista.setLocationRelativeTo(null);
         crearTabla();
         annadirPVista.setVisible(true);

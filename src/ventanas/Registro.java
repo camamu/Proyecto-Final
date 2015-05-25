@@ -5,6 +5,7 @@
  */
 package ventanas;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import usuarios.UsuariosOpImp;
 
@@ -19,6 +20,7 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         setLocationRelativeTo(null);
     }
 

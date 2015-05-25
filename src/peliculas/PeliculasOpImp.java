@@ -363,5 +363,21 @@ public class PeliculasOpImp implements PeliculasOp {
             return null;
         }
     }
+    public Boolean controlDuplicados (String titulo){
+        boolean validFilm = false;
+        try {
+            preparedStatement = conexion.prepareStatement("SELECT * FROM peliculas WHERE titulo = ?");
+            preparedStatement.setString(1, titulo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String titulin = resultSet.getString(1);
+                validFilm = (titulo.equals(titulin));
+            }
+            return validFilm;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return validFilm;
+    }
 
 }

@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import peliculas.PeliculasOpImp;
 
@@ -29,6 +30,7 @@ public class Favoritas extends javax.swing.JFrame {
 
     public Favoritas() throws IOException {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         setLocationRelativeTo(null);
         crearTablaFavoritas();
     }
@@ -344,6 +346,7 @@ public class Favoritas extends javax.swing.JFrame {
         if ((fila > -1) && (columna == 0)) {
             titulo = (String) modelo.getValueAt(fila, columna);
             mensaje.setSize(600, 150);
+            mensaje.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
             mensaje.setLocationRelativeTo(null);
             mensaje.setVisible(true);
             jLInformacion.setText("¿Quieres añadir " + titulo + " como pelicula vista?");
@@ -363,6 +366,7 @@ public class Favoritas extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         annadirPFavorita.setVisible(true);
         annadirPFavorita.setSize(460, 395);
+        annadirPFavorita.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         annadirPFavorita.setLocationRelativeTo(null);
         crearTabla();
     }//GEN-LAST:event_jButton3ActionPerformed

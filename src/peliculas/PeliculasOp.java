@@ -36,4 +36,6 @@ public interface PeliculasOp {
         public void eliminarFavorita(String titulo, String usuario);
         
         public void eliminarVista(String titulo, String usuario);
+        
+        public Boolean controlDuplicados(String titulo);
 }

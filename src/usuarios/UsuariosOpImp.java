@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ventanas.Correo;
 
 public class UsuariosOpImp implements UsuariosOp {
 
@@ -77,13 +78,18 @@ public class UsuariosOpImp implements UsuariosOp {
 
     @Override
     public void consultarPasswd(String nick) {
+        String contraseña = "", correo = "";
         try {
             preparedStatement = conexion.prepareStatement("SELECT * FROM usuarios WHERE nick = ?");
             preparedStatement.setString(1, nick);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(2) + "\t");
+                contraseña = resultSet.getString(2);
+                correo = resultSet.getString(5);
             }
+            Correo rcontraseña = new Correo("desarrollador.93.04.17@gmail.com", "nezsesszqpuqxcuk", correo, "Recuperacion de contraseña:", "Su contraseña es: "+contraseña);
+            rcontraseña.sendMail();
+            System.out.println(correo);
         } catch (SQLException ex) {
             System.out.println(ex);
         }

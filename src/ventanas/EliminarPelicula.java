@@ -5,6 +5,7 @@
  */
 package ventanas;
 
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import peliculas.PeliculasOpImp;
 
@@ -23,6 +24,7 @@ public class EliminarPelicula extends javax.swing.JFrame {
     
     public EliminarPelicula() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
         setLocationRelativeTo(null);
         crearTabla();
     }
@@ -208,6 +210,7 @@ public class EliminarPelicula extends javax.swing.JFrame {
         titulo = (String)modelo.getValueAt(fila, columna);
         if ((fila > -1) && (columna == 0)){
            jDialog1.setSize(436, 175);
+           jDialog1.setIconImage(new ImageIcon(getClass().getResource("/imagenes/logo.png")).getImage());
            jDialog1.setLocationRelativeTo(null);
            jDialog1.setVisible(true);
            mensaje.setText("Vas a eliminar la pelicula " + titulo + ". ¿Estas Seguro?");
